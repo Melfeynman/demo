@@ -1,0 +1,64 @@
+CREATE TABLE members
+(
+    id serial,
+    ceo text,
+    age text,
+    post text,
+    organization text,
+    salary bigint,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO members (ceo, age, post, organization, salary)
+VALUES 
+('Иванов Иван Петрович', '40', 'Инженер', 'ООО "ТехноСервис"', 85000),
+('Иванова Мария Сергеевна', '38', 'Бухгалтер', 'АО "ФинансГрупп"', 75000),
+('Иванова Елена Викторовна', '66', 'Репетитор', 'Частная практика', 15000),
+('Петров Сергей Александрович', '43', 'Таксист','Индивидуальная работа', 30000),
+('Иванов Алексей Иванович', '15','-', '-', '0');
+
+CREATE TABLE products
+(
+    id serial,
+    product_type text,
+    name text NOT NULL,
+    price decimal NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO products (product_type, name, price)
+VALUES
+('Продукты', 'Хлеб', '50'),
+('Продукты', 'Молоко', '80'),
+('Транспорт', 'Бензин', '80'),
+('Развлечения', 'Билет в кино', '300'),
+('Одежда', 'Зимнее пальто', '8500'),
+('Образование', 'Учебники', '400'),
+('Здоровье', 'Лекарства', '25000'),
+('Кредиты', 'Погашение кредита', '89000'),
+('Подарки', 'Смартфон в подарок', '99900');
+
+CREATE TABLE sales
+(
+    id serial NOT NULL,
+    product_id integer REFERENCES products(id) NOT NULL,
+    member_id integer REFERENCES members(id) NOT NULL,
+    production_quantity bigint,
+    date_of_sale DATE,
+    PRIMARY KEY (id)
+);
+
+SET datestyle = "ISO, MDY";
+
+INSERT INTO sales (product_id, member_id, production_quantity, date_of_sale)
+VALUES
+(1, 1, 15500, '03-23-2023'),
+(2, 1, 100, '02-01-2025'),
+(2, 1, 240, '02-01-2025'),
+(5, 1, 80, '02-01-2025'),
+(3, 2, 8500, '02-16-2025'),
+(7, 4, 2400, '02-09-2025'),
+(8, 3, 125000, '02-12-2025'),
+(9, 1, 89000, '02-18-2025'),
+(4, 2, 99900, '02-22-2025'),
+(5, 4, 300, '02-22-2025');

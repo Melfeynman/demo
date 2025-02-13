@@ -2,7 +2,9 @@ import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
 const api = {
-  foo: (data) => ipcRenderer.invoke('sendSignal', data)
+  getMembers: () => ipcRenderer.invoke('getMembers'),
+  createMember: (member) => ipcRenderer.invoke('createMember', member),
+  updateMember: (member) => ipcRenderer.invoke('updateMember', member)
 }
 
 if (process.contextIsolated) {
